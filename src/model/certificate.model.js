@@ -7,14 +7,26 @@ const resultSchema = new Schema({
         lowercase: true,
         trim: true,
     },
-    studentId: {
+    certificateId: {
         type: String,
         required: true,
         unique: true,
         trim: true,
         index: true
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowecase: true,
+        trim: true,
+    },
     fatherName: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    institute: {
         type: String,
         required: true,
         trim: true,

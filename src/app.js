@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import userRouter from './router/userRouter.js'
 import adminRouter from './router/adminRouter.js'
+import certificateRouter from './router/certificateRouter.js'
 
 dotenv.config({
     path: './.env'
@@ -22,5 +23,5 @@ app.use(cookieParser())
 //router
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/admin", adminRouter)
-
+app.use("/api/v1/certificate", certificateRouter)
 export { app }

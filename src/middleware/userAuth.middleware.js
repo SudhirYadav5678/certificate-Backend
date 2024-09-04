@@ -5,11 +5,11 @@ export const verifyJWT = async function (req, res, next) {
     try {
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
 
-        // console.log(token);
+        //console.log("token", token);
         if (!token) {
             return res.status(401).json({
                 success: false,
-                message: "Unauthorized request"
+                message: "Unauthorized request in User Token"
             })
         }
 
@@ -20,7 +20,7 @@ export const verifyJWT = async function (req, res, next) {
         if (!user) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid Access Token"
+                message: "Invalid User Access Token"
             })
         }
 
@@ -30,7 +30,7 @@ export const verifyJWT = async function (req, res, next) {
         console.log("auth error", error);
         return res.status(401).json({
             success: false,
-            message: "Invalid Access Token"
+            message: "Invalid User Access Token"
         })
     }
 }

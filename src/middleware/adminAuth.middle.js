@@ -1,15 +1,15 @@
 import jwt from "jsonwebtoken"
 import { Admin } from '../model/admin.model.js'
 
-export const adminverifyJWT = async function (req, res, next) {
+export const adminVerifyJWT = async function (req, res, next) {
     try {
-        const adminToken = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
+        const adminToken = req.cookies?.accessTokenAdmin || req.header("Authorization")?.replace("Bearer ", "")
 
-        // console.log(token);
+        //console.log("adminToken", adminToken);
         if (!adminToken) {
             return res.status(401).json({
                 success: false,
-                message: "Unauthorized request"
+                message: "Unauthorized request in admin"
             })
         }
 
@@ -20,7 +20,7 @@ export const adminverifyJWT = async function (req, res, next) {
         if (!admin) {
             return res.status(401).json({
                 success: false,
-                message: "Invalid Access Token"
+                message: "Invalid Admin Access Token"
             })
         }
 
@@ -30,7 +30,7 @@ export const adminverifyJWT = async function (req, res, next) {
         console.log("auth error", error);
         return res.status(401).json({
             success: false,
-            message: "Invalid Access Token"
+            message: "Invalid Admin  Access Token"
         })
     }
 }
