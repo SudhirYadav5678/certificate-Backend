@@ -76,24 +76,26 @@ const generateCetificateCsv = async function (req, res) {
             message: "CSV file is missing."
         })
     }
-    const certificateId = nanoid();
+
     try {
         const userData = []
         csv()
             .fromFile(csvFiles)
             .then(async (responce) => {
-                for (var i = 0; i < responce.length; i++) {
+                for (let i = 0; i < responce.length; i++) {
+                    var certificateId = nanoid();
+                    //console.log("certificateId", certificateId);
+
                     userData.push({
                         name: responce[i].name,
                         email: responce[i].email,
                         fatherName: responce[i].fatherName,
                         institute: responce[i].institute,
                         certificateId: certificateId,
-                        //user: user,
                         admin: admin
                     })
                 }
-                //console.log(userData);
+                console.log("userData", userData);
                 const certificate = await Result.insertMany(userData);
                 if (!certificate) {
                     return res.status(500).json({
@@ -101,7 +103,11 @@ const generateCetificateCsv = async function (req, res) {
                         message: "User not added in database"
                     })
                 }
-                await sendMail(userData.email, "Certificate Id | QuickUp", "", mailHtml(userData.email, userData.name, userData.institute, certificateId))
+
+                for (let i = 0; i < userData.length; i++) {
+                    await sendMail(userData[i].email, "Certificate Id | QuickUp", "", mailHtml(userData[i].email, userData[i].name, userData[i].institute, certificateId))
+                }
+
             })
 
         const csvUrl = await uploadOnCloudinary(csvFiles);
@@ -119,7 +125,42 @@ const generateCetificateCsv = async function (req, res) {
 
 }
 
+const getCertificateDownload = async function (req, res) {
+    try {
+        const user = req.user._id;
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "Login with User account"
+            })
+        }
+
+        const { name, email, institute, certificateId } = await req.body
+        if (!name && !certificateId && !email && !institute) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required"
+            })
+        }
+
+        const certificateDownload = await Result.findOne({ name, email, certificateId, institute });
+        const updateCertificateDetails = await Result.updateOne({
+            user: user
+        })
+        //console.log("certificateDownload", certificateDownload);
+        return res.status(200).json({
+            success: true,
+            message: "Here Your Certificate"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error while finding Certificate"
+        })
+    }
+}
 export {
     generaterCertificateWithForn,
-    generateCetificateCsv
+    generateCetificateCsv,
+    getCertificateDownload
 }

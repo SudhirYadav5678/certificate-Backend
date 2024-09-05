@@ -6,7 +6,7 @@ export const mailHtml = function (email, name, institute, certificateId) {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <style>
+        <style>
                     body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -53,21 +53,22 @@ export const mailHtml = function (email, name, institute, certificateId) {
             <body>
                 <div class="container">
                     <div class="header">
-                        <h1>Welcome to Our Service!</h1>
+                        <h1>Welcome to QuickUp</h1>
                     </div>
                     <div class="content">
                         <p>Hello ${name},</p>
-                        <p>Thank you for joining us. We are thrilled to have you on board!</p>
-                        <p>Below are your account details:</p>
+                        <p>Thank you for Choosing. We are thrilled to have you on board!</p>
+                        <p>Below are your Certificate details:</p>
                         <ul>
-                            <li><strong>Email:</strong> ${email}</li>
-                            <li><strong>Certificate:</strong> ${certificateId}</li>
-                            <li><strong>Institute:</strong> ${institute}</li>
+                        <li><strong>Name:-</strong> ${name}</li>
+                            <li><strong>Email:-</strong> ${email}</li>
+                            <li><strong>Certificate:-</strong> ${certificateId}</li>
+                            <li><strong>Institute:-</strong> ${institute}</li>
                         </ul>
                         <p>If you have any questions, feel free to reply to this email. We're here to help!</p>
                         <p>Best regards,</p>
                         <p>The QuickUp Team</p>
-                        <p><a href="#" class="btn">Visit Our Website</a></p>
+                        <p><a href="/github/SudhirYadav5678" class="btn">Download</a></p>
                     </div>
                     <div class="footer">
                         <p>&copy; 2024 QuickUp. All rights reserved.</p>

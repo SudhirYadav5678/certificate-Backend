@@ -18,10 +18,10 @@ const transporter = nodemailer.createTransport({
 
 export const sendMail = async function (to, subject, text, html) {
     try {
-        console.log(to, subject, text, html);
+        //console.log(to, subject, text, html);
 
         const info = await transporter.sendMail({
-            from: '"QuickUp👻" <sudhirpubg66@gmail.com>', // sender address
+            from: '"Team QuickUp" <sudhirpubg66@gmail.com>', // sender address
             to, // list of receivers
             subject, // Subject line
             text, // plain text body

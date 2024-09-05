@@ -53,7 +53,7 @@ const registerAdmin = async function (req, res) {
     }
 
     const logoLocalPath = req.files?.logo?.[0]?.path;
-    //console.log("avatarLocalPath", avatarLocalPath);
+    console.log("avatarLocalPath", avatarLocalPath);
 
     const logo = await uploadOnCloudinary(logoLocalPath);
     //console.log(avatar);

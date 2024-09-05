@@ -24,6 +24,7 @@ const adminSchema = new Schema({
     },
     logo: {
         type: String, // cloudinary url
+        default: ""
     },
     password: {
         type: String,
