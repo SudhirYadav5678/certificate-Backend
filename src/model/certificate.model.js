@@ -38,7 +38,6 @@ const resultSchema = new Schema({
     admin: {
         type: Schema.Types.ObjectId,
         ref: "Admin",
-        required: true
     }
 
 }, { timestamps: true })
