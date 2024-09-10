@@ -49,7 +49,8 @@ const generaterCertificateWithForn = async function (req, res) {
             const mail = sendMail(email, "Certificate Id | QuickUp", "", mailHtml(email, name, institute, certificateId))
             return res.status(200).json({
                 success: true,
-                message: "Certificate Data added SuccessFully"
+                message: "Certificate Data added SuccessFully",
+                certificate
             })
         }
 
@@ -120,7 +121,8 @@ const generateCetificateCsv = async function (req, res) {
     } catch (error) {
         return res.status(400).json({
             success: false,
-            message: "Filed to update marks through CSV"
+            message: "Filed to update marks through CSV",
+            certificate
         })
     }
 
@@ -156,12 +158,58 @@ const getCertificateDownload = async function (req, res) {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error while finding Certificate"
+            message: "Error while finding Certificate",
+            updateCertificateDetails,
+            certificateDownload
+        })
+    }
+}
+
+const generaterCertificateWithFornUser = async function (req, res) {
+    try {
+        const { name, fatherName, email, institute } = req.body;
+        //console.log(name, fatherName, email, institute);
+
+        if (!name && !fatherName && !email && !institute) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required"
+            })
+        }
+
+        const certificateId = nanoid();
+        //console.log("certificateId", certificateId);
+
+
+        const certificate = await Result.create({
+            name,
+            email,
+            fatherName, institute,
+            certificateId: certificateId,
+        })
+
+        //console.log("certificate", certificate);
+
+        if (certificate) {
+            const mail = sendMail(email, "Certificate Id | QuickUp", "", mailHtml(email, name, institute, certificateId))
+            return res.status(200).json({
+                success: true,
+                message: "Certificate Data added SuccessFully",
+                certificate
+            })
+        }
+
+
+    } catch (error) {
+        return res.status(200).json({
+            success: false,
+            message: "Certificate Data not added "
         })
     }
 }
 export {
     generaterCertificateWithForn,
     generateCetificateCsv,
-    getCertificateDownload
+    getCertificateDownload,
+    generaterCertificateWithFornUser
 }
