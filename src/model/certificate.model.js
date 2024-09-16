@@ -31,6 +31,10 @@ const resultSchema = new Schema({
         required: true,
         trim: true,
     },
+    template: {
+        type: String,
+        required: true,
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: "User",

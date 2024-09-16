@@ -167,10 +167,10 @@ const getCertificateDownload = async function (req, res) {
 
 const generaterCertificateWithFornUser = async function (req, res) {
     try {
-        const { name, fatherName, email, institute } = req.body;
+        const { name, fatherName, email, institute, template } = req.body;
         //console.log(name, fatherName, email, institute);
 
-        if (!name && !fatherName && !email && !institute) {
+        if (!name && !fatherName && !email && !institute && !template) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -184,7 +184,7 @@ const generaterCertificateWithFornUser = async function (req, res) {
         const certificate = await Result.create({
             name,
             email,
-            fatherName, institute,
+            fatherName, institute, template,
             certificateId: certificateId,
         })
 
