@@ -45,10 +45,10 @@ const deleteCloudinary = async function (localFilePath) {
         const response = await cloudinary.uploader.destroy(imageDisplayName?.[0], {
             resource_type: "image"
         })
-        console.log("avatar updated");
+        //console.log("avatar updated");
         return 1;
     } catch (error) {
-        console.log("Error while file deleting on Cloudinary", error);
+        //console.log("Error while file deleting on Cloudinary", error);
         return null
     }
 }
