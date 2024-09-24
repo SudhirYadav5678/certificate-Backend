@@ -1,6 +1,11 @@
 import mongoose, { Schema } from 'mongoose'
 
 const templateSchema = new Schema({
+    id: {
+        type: String,
+        required: true,
+        unique: true
+    },
     name: {
         type: String,
         required: true,

@@ -1,6 +1,6 @@
 import { Template } from "../model/template.modal.js";
 import { uploadOnCloudinary } from "../utiles/cloudinary.js";
-
+import nanid from 'nanoid'
 const templateAdd = async (req, res) => {
     const { name, ownerOfTemplate } = await req.body
 
@@ -13,12 +13,14 @@ const templateAdd = async (req, res) => {
         })
     }
 
+    const id = nanid();
     const pathOfTemplate = req.files?.template?.[0]?.path;
     console.log("pathOfTemplate", pathOfTemplate);
 
     const templateUrl = await uploadOnCloudinary(pathOfTemplate);
 
     const template = await Template.create({
+        id: id,
         name,
         urlOfTemplate: templateUrl,
         ownerOfTemplate
